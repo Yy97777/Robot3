@@ -13,7 +13,7 @@ Adafruit_VL53L0X lox2 = Adafruit_VL53L0X();
 VL53L0X_RangingMeasurementData_t measure1;
 VL53L0X_RangingMeasurementData_t measure2;
 
-Servo myservo;  // create servo object to control a servo
+Servo myservo;  
 
 
 
@@ -60,7 +60,7 @@ void setup() {
   pinMode(52,OUTPUT);
 
   Serial.begin(9600);
-  myservo.attach(53);  // attaches the servo on pin 9 to the servo object
+  myservo.attach(53);  
   myservo.write(v);
   
   pinMode(SHT_LOX1, OUTPUT);
