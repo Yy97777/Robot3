@@ -48,25 +48,21 @@ int dis_L = 0;
 int dis_F = 0;
 int count = 0;
 int z=99999;
-// address we will assign if dual sensor is present
+
 #define LOX1_ADDRESS 0x30
 //#define LOX2_ADDRESS 0x31
 
-// set the pins to shutdown
 #define SHT_LOX1 12
 //#define SHT_LOX2 13
 
-// objects for the vl53l0x
 Adafruit_VL53L0X lox1 = Adafruit_VL53L0X();
 //Adafruit_VL53L0X lox2 = Adafruit_VL53L0X();
 
-// this holds the measurement
 VL53L0X_RangingMeasurementData_t measure1;
 //VL53L0X_RangingMeasurementData_t measure2;
 
 
 void setup() {
-  // put your setup code here, to run once:
   attachInterrupt(digitalPinToInterrupt(18), ReadEncoderA, CHANGE);
   attachInterrupt(digitalPinToInterrupt(19), ReadEncoderB, CHANGE);
   attachInterrupt(digitalPinToInterrupt(2), ReadEncoderC, CHANGE);
@@ -101,11 +97,9 @@ void setup() {
 
  
 }
-//left(200,200)
-//Line_following(260);
-//速差抓7
+
 void loop() {
-  // put your main code here, to run repeatedly:
+
    detect();
   if(state==-3){
     if(analogRead(A0)<350){
@@ -172,7 +166,7 @@ void loop() {
   // delay(1000);
   // }
   //}
-  if(state == 0){ //尋找火焰
+  if(state == 0){ 
     if(analogRead(A0) < 300 ){
       back(155,155);
       delay(300);
@@ -214,7 +208,7 @@ void loop() {
     }
   }
 
-  if(state == 1){   //右轉面相火焰
+  if(state == 1){  
     stop();
     delay(100);
     back(100,100);
@@ -225,7 +219,7 @@ void loop() {
     stop();
     state = 3;
   }
-  if(state == 7){   //第二層右轉面相火焰
+  if(state == 7){   
     stop();
     delay(100);
     back(100,100);
@@ -237,7 +231,7 @@ void loop() {
     state = 6;
   }
 
-  if(state == 2){    //左轉面相火焰
+  if(state == 2){    
     stop();
     delay(100);
     back(100,100);
@@ -248,7 +242,7 @@ void loop() {
     stop();
     state = 3;
   }
-  if(state == 8){    //第二層左轉面相火焰
+  if(state == 8){    
     stop();
     delay(100);
     back(100,100);
@@ -259,7 +253,7 @@ void loop() {
     stop();
     state = 6;
   }
-  if(state == 3){   //往前找火焰
+  if(state == 3){   
     if(analogRead(A0) < 350 || analogRead(A3) < 350 || analogRead(A11) < 350)
       state = 4;
     if(analogRead(A5) > 150)
@@ -271,7 +265,7 @@ void loop() {
     else
       forward(130,130);
   }
-    if(state == 6){   //第二層往前找火焰
+    if(state == 6){   
   
     if(analogRead(A0) < 350 || analogRead(A3) < 350 || analogRead(A11) < 350)
       state = 4;
@@ -285,7 +279,7 @@ void loop() {
     else
       forward(130,130);
     }
-  if(state == 4){  //吹襲火焰
+  if(state == 4){  
     stop(); 
     delay(100);
     forward(100,100);
@@ -309,7 +303,7 @@ void loop() {
     state = c;
   }
 
-  if(state == 5){//第一次滅完火
+  if(state == 5){
     stop();
     delay(100);
     back(107,100);
@@ -343,7 +337,7 @@ void loop() {
     c = 9;
     state = 0;
   }
-  if(state == 9){//第二次滅完火
+  if(state == 9){
     stop();
     delay(100);
     back(100,100);
@@ -359,7 +353,7 @@ void loop() {
     c = 10;
     state = 0;
   }
-  if(state == 10){//第三次滅完火
+  if(state == 10){
   back(100,100);
   Line_following(190);
   right(107,100);
@@ -433,7 +427,7 @@ void detect(){
   lox1.rangingTest(&measure1, false); // pass in 'true' to get debug data printout!
   //lox2.rangingTest(&measure2, false); // pass in 'true' to get debug data printout!
   if(measure1.RangeStatus != 4){
-  dis_F = measure1.RangeMilliMeter; //最遠120cm
+  dis_F = measure1.RangeMilliMeter; 
   }
 
 Serial.print(analogRead(A0));
